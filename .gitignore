@@ -1,2 +1,6 @@
 /venv/
 *.idea
+venv
+*.pic
+__pycache__
+env
