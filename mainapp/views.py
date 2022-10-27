@@ -25,3 +25,30 @@ class LoginView(TemplateView):
 
 class NewsView(TemplateView):
     template_name = 'mainapp/news.html'
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['object_list'] = [
+            {
+                'title': 'Новость',
+                'preview': 'Предварительное описание новости',
+                'date': '2021-04-29 20-50-26'
+            }, {
+                'title': 'Новость',
+                'preview': 'Предварительное описание новости',
+                'date': '2021-04-29 20-50-26'
+            }, {
+                'title': 'Новость',
+                'preview': 'Предварительное описание новости',
+                'date': '2021-04-29 20-50-26'
+            }, {
+                'title': 'Новость',
+                'preview': 'Предварительное описание новости',
+                'date': '2021-04-29 20-50-26'
+            }, {
+                'title': 'Новость',
+                'preview': 'Предварительное описание новости',
+                'date': '2021-04-29 20-50-26'
+            }
+        ]
+        return context_data
