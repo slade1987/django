@@ -10,7 +10,7 @@
                 <h5 class="card-title">{{ news_item.title }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ news_item.create_at|date:"d.m.Y H:i" }}</h6>
                 <p class="card-text">{{ news_item.preamble }} </p>
-                <a href="#" class="card-link">Подробнее</a>
+                <a href="{% url 'mainapp::news_detail' news_item.pk %}" class="card-link">Подробнее</a>
             </div>
             </div>
             {% endfor %}
