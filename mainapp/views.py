@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView
+from mainapp.models import News
 
 
 class ContactsView(TemplateView):
@@ -52,27 +53,5 @@ class NewsView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        context_data['object_list'] = [
-            {
-                'title': 'Новость',
-                'preview': 'Предварительное описание новости',
-                'date': '2021-04-29 20-50-26'
-            }, {
-                'title': 'Новость',
-                'preview': 'Предварительное описание новости',
-                'date': '2021-04-29 20-50-26'
-            }, {
-                'title': 'Новость',
-                'preview': 'Предварительное описание новости',
-                'date': '2021-04-29 20-50-26'
-            }, {
-                'title': 'Новость',
-                'preview': 'Предварительное описание новости',
-                'date': '2021-04-29 20-50-26'
-            }, {
-                'title': 'Новость',
-                'preview': 'Предварительное описание новости',
-                'date': '2021-04-29 20-50-26'
-            }
-        ]
+        context_data['object_list'] = News.objects.filter(deleted=False)
         return context_data
