@@ -1,6 +1,5 @@
-from django.shortcuts import render
-from django.http import HttpResponse
 from django.views.generic import TemplateView
+
 from mainapp.models import News
 
 
@@ -32,6 +31,7 @@ class ContactsView(TemplateView):
         ]
         return context_data
 
+
 class CoursesView(TemplateView):
     template_name = 'mainapp/courses_list.html'
 
@@ -55,6 +55,7 @@ class NewsView(TemplateView):
         context_data = super().get_context_data(**kwargs)
         context_data['object_list'] = News.objects.filter(deleted=False)
         return context_data
+
 
 class NewsDetail(TemplateView):
     template_name = 'mainapp/news_detail.html'
