@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from django.contrib import messages
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 
 from authapp.models import User
 
@@ -65,7 +65,7 @@ class RegisterView(TemplateView):
             return HttpResponseRedirect(reverse('authapp:register'))
 
 
-class CustomLogoutView(LoginView):
+class CustomLogoutView(LogoutView):
     pass
 
 
