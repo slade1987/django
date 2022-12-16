@@ -1,0 +1,15 @@
+[
+  {
+    "model": "mainapp.news",
+    "pk": 1,
+    "fields": {
+      "title": "Новость",
+      "preamble": "Вступление",
+      "body": "Содержание",
+      "body_as_markdown": false,
+      "create_at": "2022-11-13T22:01:57.643Z",
+      "update_at": "2022-11-13T22:01:57.643Z",
+      "deleted": false
+    }
+  }
+]
