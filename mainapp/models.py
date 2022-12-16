@@ -1,6 +1,10 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 
+from config import settings
+
 NULLABLE = {'blank': True, 'null': True}
+
 
 class News(models.Model):
     title = models.CharField(max_length=256, verbose_name='Заголовок')
@@ -89,3 +93,25 @@ class CourseTeacher(models.Model):
     def delete(self, *args, **kwargs):
         self.deleted = True
         self.save()
+
+
+class CourseFeedback(models.Model):
+    RAITINGS = (
+        (5, '⭐⭐⭐⭐⭐'),
+        (4, '⭐⭐⭐⭐'),
+        (3, '⭐⭐⭐'),
+        (2, '⭐⭐'),
+        (1, '⭐'),
+    )
+
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='')
+    rating = models.SmallIntegerField(choices=RAITINGS, default=5, verbose_name='Райтинг')
+    feedback = models.TextField(verbose_name='Отзыв', default='Без отзыва')
+
+    class Meta:
+        verbose_name = ''
+        verbose_name_plural = ''
+
+    def __str__(self):
+        return f'Отзыв на {self.course} от {self.user}'

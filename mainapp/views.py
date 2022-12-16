@@ -89,3 +89,6 @@ class NewsDeletedView(PermissionRequiredMixin, DeleteView):
     model = News
     success_url = reverse_lazy('mainapp:news')
     permission_required = ('mainapp.delete_news',)
+
+
+class CourseDetailView(TemplateView):
