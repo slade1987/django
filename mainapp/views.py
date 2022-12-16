@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from mainapp.models import News
+from mainapp.models import News, Course, Lesson, CourseTeacher, CourseFeedback
 
 
 class ContactsView(TemplateView):
@@ -34,8 +35,9 @@ class ContactsView(TemplateView):
         return context_data
 
 
-class CoursesView(TemplateView):
+class CoursesView(ListView):
     template_name = 'mainapp/courses_list.html'
+    model = Course
 
 
 class DocSiteView(TemplateView):
@@ -92,3 +94,15 @@ class NewsDeletedView(PermissionRequiredMixin, DeleteView):
 
 
 class CourseDetailView(TemplateView):
+    template_name = 'mainapp/courses_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['course_object'] = get_object_or_404(Course, pk=self.kwargs.get('pk'))
+        context_data['lessons'] = Lesson.objects.filter(course=context_data['course_object'])
+        context_data['teacher'] = CourseTeacher.objects.filter(course=context_data['course_object'])
+        context_data['feedback_list'] = CourseFeedback.objects.filter(course=context_data['course_object'])
+
+        if self.request.user.is_authenticated:
+            context_data['feedback_form'] = CourseFeedback(course=context_data['course_object'], user=self.request.user)
+        return context_data
